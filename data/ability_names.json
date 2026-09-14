@@ -1,16 +1,43 @@
 {
-  "neutral_1_pure_standard": ["Jab", "Nudge", "Smack", "Scratch"],
-  "neutral_2_pure_standard": ["Slash", "Pound", "Tackle"],
-  "neutral_3_pure_standard": ["Strike", "Slam", "Charge"],
+  "neutral_1_pure_standard": [
+    "Jab",
+    "Nudge",
+    "Smack",
+    "Scratch"
+  ],
+  "neutral_2_pure_standard": [
+    "Slash",
+    "Pound",
+    "Tackle"
+  ],
+  "neutral_3_pure_standard": [
+    "Strike",
+    "Slam",
+    "Charge"
+  ],
   "neutral_4_pure_standard": [
     "Giga Slam",
     "Mega Bash",
     "Brutalize",
     "Hammer rush"
   ],
-  "fire_1_pure_standard": ["Sizzle", "Smolder", "Ignite"],
-  "fire_2_pure_standard": ["Heat Ray", "Fire Storm", "Burn Bolt", "Scorch"],
-  "fire_2_mixed_standard": ["Cinder Slash", "Ember", "Heat", "Fire Punch"],
+  "fire_1_pure_standard": [
+    "Sizzle",
+    "Smolder",
+    "Ignite"
+  ],
+  "fire_2_pure_standard": [
+    "Heat Ray",
+    "Fire Storm",
+    "Burn Bolt",
+    "Scorch"
+  ],
+  "fire_2_mixed_standard": [
+    "Cinder Slash",
+    "Ember",
+    "Heat",
+    "Fire Punch"
+  ],
   "fire_3_pure_standard": [
     "Magma Blast",
     "Heat Wave",
@@ -46,8 +73,18 @@
     "Firestorm Wave",
     "Ignition Surge"
   ],
-  "water_1_pure_standard": ["Splash", "Douse", "Rainfall", "Gush"],
-  "water_1_mixed_standard": ["Bubble", "Drizzle", "Torrent", "Spray"],
+  "water_1_pure_standard": [
+    "Splash",
+    "Douse",
+    "Rainfall",
+    "Gush"
+  ],
+  "water_1_mixed_standard": [
+    "Bubble",
+    "Drizzle",
+    "Torrent",
+    "Spray"
+  ],
   "water_2_pure_standard": [
     "Water Jet",
     "Mist Strike",
@@ -96,8 +133,16 @@
     "Maelstrom Slash",
     "Tidal Surge"
   ],
-  "grass_1_pure_standard": ["Sap", "Bramble", "Sprout"],
-  "grass_1_mixed_standard": ["Snip", "Prickle", "Bramble"],
+  "grass_1_pure_standard": [
+    "Sap",
+    "Bramble",
+    "Sprout"
+  ],
+  "grass_1_mixed_standard": [
+    "Snip",
+    "Prickle",
+    "Bramble"
+  ],
   "grass_2_pure_standard": [
     "Photosynthesis",
     "Vineshock",
@@ -144,8 +189,17 @@
     "Floral Crush",
     "Blossom Burst"
   ],
-  "electric_1_pure_standard": ["Zap", "Volt", "Shock", "Jolt"],
-  "electric_1_mixed_standard": ["Spark", "Flash", "Crackle"],
+  "electric_1_pure_standard": [
+    "Zap",
+    "Volt",
+    "Shock",
+    "Jolt"
+  ],
+  "electric_1_mixed_standard": [
+    "Spark",
+    "Flash",
+    "Crackle"
+  ],
   "electric_2_pure_standard": [
     "Sparkwave",
     "Joltzap",
@@ -190,12 +244,36 @@
     "Hypercharge",
     "Cyclonic Surge"
   ],
-  "psychic_1_pure_standard": ["Levitate", "Psionic", "Synapse"],
-  "psychic_1_mixed_standard": ["Confuse Ray", "Mindlash", "Teleport"],
-  "psychic_2_pure_standard": ["Telekinesis", "Mana Burn", "Psychotize"],
-  "psychic_2_mixed_standard": ["Psychic Surge", "Psychwave", "Mystery Slash"],
-  "psychic_3_pure_standard": ["Spectral Ray", "Psycho Shock", "Astral Ring"],
-  "psychic_3_mixed_standard": ["Mindzap", "Cosmic Wave", "Ghost Strike"],
+  "psychic_1_pure_standard": [
+    "Levitate",
+    "Psionic",
+    "Synapse"
+  ],
+  "psychic_1_mixed_standard": [
+    "Confuse Ray",
+    "Mindlash",
+    "Teleport"
+  ],
+  "psychic_2_pure_standard": [
+    "Telekinesis",
+    "Mana Burn",
+    "Psychotize"
+  ],
+  "psychic_2_mixed_standard": [
+    "Psychic Surge",
+    "Psychwave",
+    "Mystery Slash"
+  ],
+  "psychic_3_pure_standard": [
+    "Spectral Ray",
+    "Psycho Shock",
+    "Astral Ring"
+  ],
+  "psychic_3_mixed_standard": [
+    "Mindzap",
+    "Cosmic Wave",
+    "Ghost Strike"
+  ],
   "psychic_4_pure_standard": [
     "Astral Beam",
     "Psychic Nova",
@@ -209,11 +287,30 @@
     "Mind Blast",
     "Hypnosis Torrent"
   ],
-  "fighting_1_pure_standard": ["Jab", "Punch"],
-  "fighting_2_pure_standard": ["Uppercut", "Clobber", "Strike"],
-  "fighting_2_mixed_standard": ["Roundhouse", "Kickflip", "Wallop"],
-  "fighting_3_pure_standard": ["Terrastrike", "Furious Combo", "Rock Breaker"],
-  "fighting_3_mixed_standard": ["Pulverize", "Fissure", "Smash"],
+  "fighting_1_pure_standard": [
+    "Jab",
+    "Punch"
+  ],
+  "fighting_2_pure_standard": [
+    "Uppercut",
+    "Clobber",
+    "Strike"
+  ],
+  "fighting_2_mixed_standard": [
+    "Roundhouse",
+    "Kickflip",
+    "Wallop"
+  ],
+  "fighting_3_pure_standard": [
+    "Terrastrike",
+    "Furious Combo",
+    "Rock Breaker"
+  ],
+  "fighting_3_mixed_standard": [
+    "Pulverize",
+    "Fissure",
+    "Smash"
+  ],
   "fighting_4_pure_standard": [
     "Shockwave",
     "Quake Blast",
@@ -226,5 +323,327 @@
     "Judo Crush",
     "Battle Smash",
     "Mega Punch"
+  ],
+  "lifestyle_1_pure_standard": [
+    "Smile",
+    "Charm",
+    "Refresh",
+    "Inspire",
+    "Glow"
+  ],
+  "lifestyle_2_pure_standard": [
+    "Daily Ritual",
+    "Morning Glow",
+    "Vibe Check",
+    "Warm Aura",
+    "Trend Spark"
+  ],
+  "lifestyle_3_pure_standard": [
+    "Content Wave",
+    "Viral Story",
+    "Brand Aura",
+    "Glow Up",
+    "Radiant Field"
+  ],
+  "lifestyle_4_pure_standard": [
+    "Legacy Glow",
+    "Icon Surge",
+    "Total Influence",
+    "Star Ascension",
+    "Influence Nova"
+  ],
+  "fashion_1_pure_standard": [
+    "Pose",
+    "Vogue",
+    "Strut",
+    "Glam",
+    "Pout"
+  ],
+  "fashion_2_pure_standard": [
+    "Runway Rush",
+    "Chic Flash",
+    "Style Burst",
+    "Trend Set",
+    "Chic Wave"
+  ],
+  "fashion_2_mixed_standard": [
+    "Couture Touch",
+    "Luxe Wave",
+    "Silk Strike",
+    "Velvet Tap",
+    "Satin Drift"
+  ],
+  "fashion_3_pure_standard": [
+    "Fashion Storm",
+    "Catwalk Cyclone",
+    "Haute Rush",
+    "Glam Surge",
+    "Vogue Blast"
+  ],
+  "fashion_3_mixed_standard": [
+    "Glamour Blast",
+    "Elegance Wave",
+    "Prism Vogue",
+    "Silk Tempest",
+    "Chiffon Surge"
+  ],
+  "fashion_4_pure_standard": [
+    "Total Couture",
+    "Grand Finale",
+    "Iconic Strut",
+    "Runway Nova",
+    "Couture Apex"
+  ],
+  "fashion_4_mixed_standard": [
+    "Couture Cataclysm",
+    "Haute Havoc",
+    "Glam Galaxy",
+    "Icon Burst",
+    "Vogue Nova"
+  ],
+  "art_1_pure_standard": [
+    "Sketch",
+    "Doodle",
+    "Brush",
+    "Dab",
+    "Splash"
+  ],
+  "art_2_pure_standard": [
+    "Color Burst",
+    "Palette Flash",
+    "Art Wave",
+    "Ink Rush",
+    "Pigment Surge"
+  ],
+  "art_2_mixed_standard": [
+    "Canvas Swipe",
+    "Hue Shift",
+    "Pigment Touch",
+    "Tint Wave",
+    "Pastel Drift"
+  ],
+  "art_3_pure_standard": [
+    "Mural Storm",
+    "Gallery Blast",
+    "Masterpiece Ray",
+    "Vision Surge",
+    "Fresco Storm"
+  ],
+  "art_3_mixed_standard": [
+    "Painterly Wave",
+    "Abstract Surge",
+    "Vision Splash",
+    "Watercolor Gale",
+    "Opus Wave"
+  ],
+  "art_4_pure_standard": [
+    "Opus Magnus",
+    "Grand Canvas",
+    "Creative Nova",
+    "Gallery Surge",
+    "Masterwork Burst"
+  ],
+  "art_4_mixed_standard": [
+    "Rainbow Cascade",
+    "Art Galaxy",
+    "Vision Burst",
+    "Chromatic Nova",
+    "Palette Cataclysm"
+  ],
+  "nature_1_pure_standard": [
+    "Bloom",
+    "Sprout",
+    "Petal",
+    "Leaf",
+    "Bud"
+  ],
+  "nature_2_pure_standard": [
+    "Garden Surge",
+    "Flower Rush",
+    "Blossom Wave",
+    "Meadow Breeze",
+    "Verdant Pulse"
+  ],
+  "nature_2_mixed_standard": [
+    "Petal Touch",
+    "Herb Mist",
+    "Verdant Wave",
+    "Clover Drift",
+    "Fern Tap"
+  ],
+  "nature_3_pure_standard": [
+    "Nature Storm",
+    "Forest Surge",
+    "Wildflower Blast",
+    "Grove Cyclone",
+    "Meadow Tempest"
+  ],
+  "nature_3_mixed_standard": [
+    "Bloom Wave",
+    "Green Gale",
+    "Flora Surge",
+    "Vine Tempest",
+    "Leaf Storm"
+  ],
+  "nature_4_pure_standard": [
+    "Ancient Grove",
+    "Verdant Nova",
+    "Nature Fury",
+    "Bloom Nova",
+    "Forest Apex"
+  ],
+  "nature_4_mixed_standard": [
+    "Eden Burst",
+    "Garden Galaxy",
+    "Bloom Nova",
+    "Verdant Cataclysm",
+    "Petal Galaxy"
+  ],
+  "music_1_pure_standard": [
+    "Beat",
+    "Note",
+    "Hum",
+    "Strum",
+    "Tap"
+  ],
+  "music_2_pure_standard": [
+    "Rhythm Burst",
+    "Melody Flash",
+    "Beat Drop",
+    "Sound Wave",
+    "Chord Rush"
+  ],
+  "music_2_mixed_standard": [
+    "Acoustic Touch",
+    "Lyric Wave",
+    "Chord Strike",
+    "Riff Drift",
+    "Tune Tap"
+  ],
+  "music_3_pure_standard": [
+    "Concert Surge",
+    "Stage Rush",
+    "Sonic Blast",
+    "Chorus Storm",
+    "Riff Cyclone"
+  ],
+  "music_3_mixed_standard": [
+    "Harmony Wave",
+    "Chorus Surge",
+    "Riff Burst",
+    "Melody Tempest",
+    "Lyric Gale"
+  ],
+  "music_4_pure_standard": [
+    "Grand Crescendo",
+    "Encore Nova",
+    "Symphonic Surge",
+    "Opus Burst",
+    "Finale Storm"
+  ],
+  "music_4_mixed_standard": [
+    "Beat Nova",
+    "Lyric Galaxy",
+    "Sound Cataclysm",
+    "Harmony Nova",
+    "Crescendo Burst"
+  ],
+  "travel_1_pure_standard": [
+    "Wander",
+    "Drift",
+    "Roam",
+    "Glide",
+    "Venture"
+  ],
+  "travel_2_pure_standard": [
+    "Journey Surge",
+    "Horizon Flash",
+    "Wind Ride",
+    "Path Rush",
+    "Compass Wave"
+  ],
+  "travel_2_mixed_standard": [
+    "Vista Breeze",
+    "Route Wave",
+    "Compass Touch",
+    "Trail Drift",
+    "Passport Tap"
+  ],
+  "travel_3_pure_standard": [
+    "Expedition Blast",
+    "Journey Storm",
+    "Horizon Surge",
+    "Voyage Cyclone",
+    "Odyssey Rush"
+  ],
+  "travel_3_mixed_standard": [
+    "Passport Wave",
+    "Adventure Gale",
+    "Wanderlust Surge",
+    "Route Tempest",
+    "Horizon Drift"
+  ],
+  "travel_4_pure_standard": [
+    "Grand Tour",
+    "Odyssey Nova",
+    "World Surge",
+    "Expedition Apex",
+    "Voyage Nova"
+  ],
+  "travel_4_mixed_standard": [
+    "Journey Galaxy",
+    "Horizon Nova",
+    "Wanderer Burst",
+    "Odyssey Cataclysm",
+    "Travel Galaxy"
+  ],
+  "fitness_1_pure_standard": [
+    "Dash",
+    "Sprint",
+    "Flex",
+    "Pump",
+    "Lunge"
+  ],
+  "fitness_2_pure_standard": [
+    "Power Surge",
+    "Cardio Rush",
+    "Endurance Burst",
+    "Training Flash",
+    "Stamina Wave"
+  ],
+  "fitness_2_mixed_standard": [
+    "Core Strike",
+    "Muscle Touch",
+    "Stamina Tap",
+    "Rep Wave",
+    "Agility Drift"
+  ],
+  "fitness_3_pure_standard": [
+    "Champion Surge",
+    "Athletic Blast",
+    "Peak Rush",
+    "Trophy Storm",
+    "Apex Cyclone"
+  ],
+  "fitness_3_mixed_standard": [
+    "Victory Surge",
+    "Trophy Wave",
+    "Podium Rush",
+    "Endurance Gale",
+    "Strength Tempest"
+  ],
+  "fitness_4_pure_standard": [
+    "Grand Victory",
+    "Legend Surge",
+    "Champion Nova",
+    "Apex Nova",
+    "Triumph Storm"
+  ],
+  "fitness_4_mixed_standard": [
+    "Winner Galaxy",
+    "Triumph Nova",
+    "Apex Surge",
+    "Legend Cataclysm",
+    "Champion Galaxy"
   ]
 }

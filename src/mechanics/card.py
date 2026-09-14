@@ -59,4 +59,5 @@ class Card:
 
     @cached_property
     def snake_case_name(self):
-        return self.name.lower().replace(" ", "_")
+        slug = self.name.lower().replace(" ", "_")
+        return slug[:80]
