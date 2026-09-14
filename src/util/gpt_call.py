@@ -15,6 +15,8 @@ class CompletionChoice:
 @dataclass
 class CompletionResponse:
     choices: list[CompletionChoice]
+    model: str | None = None  # The model that actually answered (openrouter/free picks one).
+    finish_reason: str | None = None
 
 
 class OpenRouterClient:
@@ -47,7 +49,7 @@ class OpenRouterClient:
         return os.getenv("OPENROUTER_MODEL", "openrouter/free")
 
     @retry(tries=3, delay=3.0)
-    def get_completion(self, prompt: str, max_tokens: int = 128, n: int = 1):
+    def get_completion(self, prompt: str, max_tokens: int | None = 128, n: int = 1):
         """Call OpenRouter and return a small compatibility wrapper.
 
         The original project expects Completion-style `choice.text` values.
@@ -73,8 +75,10 @@ class OpenRouterClient:
                 },
                 {"role": "user", "content": request_prompt},
             ],
-            max_tokens=max_tokens,
+            **({"max_tokens": max_tokens} if max_tokens else {}),  # None = model default.
             temperature=0.9,
+            # Keep "thinking" models from spending the whole budget before answering.
+            extra_body={"reasoning": {"effort": "low", "exclude": True}},
         )
 
         content = response.choices[0].message.content or ""
@@ -85,7 +89,9 @@ class OpenRouterClient:
             candidates = [content.strip()]
 
         return CompletionResponse(
-            choices=[CompletionChoice(text=value) for value in candidates]
+            choices=[CompletionChoice(text=value) for value in candidates],
+            model=response.model,
+            finish_reason=response.choices[0].finish_reason,
         )
 
 

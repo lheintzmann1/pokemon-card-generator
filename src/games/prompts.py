@@ -98,19 +98,17 @@ def build_batch_prompt(cards: list[Card], game: Game, taken_names: set[str]) -> 
 
 
 def parse_batch_response(text: str) -> dict[int, dict]:
-    """Extracts {index: {"name", "description"}} from a (possibly messy) JSON answer."""
-    text = re.sub(r"```(?:json)?", "", text)
-    start, end = text.find("["), text.rfind("]")
-    if start == -1 or end <= start:
-        return {}
-    try:
-        data = json.loads(text[start : end + 1])
-    except json.JSONDecodeError:
-        return {}
+    """Extracts {index: {"name", "description"}} from a (possibly messy) JSON answer.
 
+    Each {...} object is parsed on its own, so a truncated array, a wrapper object
+    or extra text around the JSON still gives every complete card.
+    """
+    text = re.sub(r"```(?:json)?", "", text or "")
     entries = {}
-    for entry in data if isinstance(data, list) else []:
-        if not isinstance(entry, dict):
+    for match in re.finditer(r"\{[^{}]*\}", text):
+        try:
+            entry = json.loads(match.group(0))
+        except json.JSONDecodeError:
             continue
         try:
             index = int(entry.get("index"))
@@ -134,17 +132,25 @@ def enrich_cards_with_ai(
         batch_indexes = {card.index for card in batch}
         taken_names = {card.name for card in cards if card.index not in batch_indexes}
         taken_names |= seen_names - {card.name for card in batch}
-        prompt = build_batch_prompt(batch, game, taken_names)
-
         entries = {}
-        for attempt in range(2):  # One retry if the answer can't be parsed.
+        pending = batch
+        for attempt in range(2):  # The second request only asks for the missing cards.
             requests += 1
-            response = gpt_client().get_completion(prompt, max_tokens=200 * len(batch))
+            prompt = build_batch_prompt(pending, game, taken_names)
+            # No max_tokens: "thinking" free models can spend thousands of tokens before
+            # answering, and the free tier counts requests, not tokens.
+            response = gpt_client().get_completion(prompt, max_tokens=None)
             text = response.choices[0].text if response.choices else ""
-            entries = parse_batch_response(text)
-            if entries:
+            parsed = parse_batch_response(text)
+            entries.update({i: entry for i, entry in parsed.items() if i in batch_indexes})
+            pending = [card for card in batch if card.index not in entries]
+            if not pending:
                 break
-            print(f"\033[93m [WARN] Could not parse the AI answer (attempt {attempt + 1}/2).\033[0m")
+            print(
+                f"\033[93m [WARN] {len(pending)} card(s) missing from the AI answer "
+                f"(attempt {attempt + 1}/2, model={response.model}, "
+                f"finish_reason={response.finish_reason}): {text[:200]!r}\033[0m"
+            )
 
         for card in batch:
             entry = entries.get(card.index)

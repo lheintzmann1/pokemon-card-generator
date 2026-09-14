@@ -112,9 +112,25 @@ python src/generate_images.py -g cs --force         # regenerate every image (ne
 python src/generate_images.py -g tf2 -p openrouter  # OpenRouter image model (paid, needs credits)
 ```
 
-Optional `.env` settings: `POLLINATIONS_TOKEN` (higher rate limits; the anonymous tier may
-ignore the model choice), `POLLINATIONS_MODEL` (default `flux`), `OPENROUTER_IMAGE_MODEL`
-(default `google/gemini-2.5-flash-image`). The Pollinations watermark is cropped off automatically.
+With a Pollinations API key, images use the `gen.pollinations.ai` API billed in pollen, with
+the model of your choice and no watermark. Without a key, the free anonymous API is used (fixed
+low-quality model, watermark cropped off automatically).
+
+```bash
+# In your .env file
+POLLINATIONS_TOKEN="sk_..."
+POLLINATIONS_MODEL="flux"   # optional, see the table below
+```
+
+| `POLLINATIONS_MODEL`   | Model                   | Cost / image | Notes                          |
+| ---------------------- | ----------------------- | ------------ | ------------------------------ |
+| `flux` (default)       | FLUX.1 Schnell          | 0.002 pollen | Best quality for the price     |
+| `dreamshaper`          | DreamShaper 8 LCM       | 0.0001 pollen | Cheapest, lower quality       |
+| `zimage`               | Z-Image Turbo           | 0.004 pollen | Crisp, upscaled output         |
+| `klein`                | FLUX.2 Klein 4B         | 0.005 pollen | Newer FLUX                     |
+
+A run of ~20 cards with `flux` costs about 0.04 pollen. `OPENROUTER_IMAGE_MODEL`
+(default `google/gemini-2.5-flash-image`) is used with `-p openrouter` (paid OpenRouter credits).
 
 You can still use Midjourney: paste the `image_prompt` (also in `output/<collection>/_image_prompts.txt`),
 save the image in `output/<collection>/images/` with the card's `image_file` name
