@@ -4,6 +4,8 @@ import argparse
 import random
 
 from games.game_collection import GameCollection
+from generate_images import generate_collection_images
+from util.image_gen import PROVIDERS
 from games.registry import GAMES, get_game
 from util.gpt_call import gpt_client
 
@@ -47,6 +49,12 @@ def main():
         help="Don't call the AI at all (built-in names and descriptions).",
     )
     argparser.add_argument(
+        "--images",
+        choices=[*sorted(PROVIDERS), "none"],
+        default="pollinations",
+        help="Generate the card artwork with this provider ('none' to skip).",
+    )
+    argparser.add_argument(
         "--batch-size",
         type=int,
         default=10,
@@ -82,6 +90,9 @@ def main():
 
     print(*collection.cards, sep="\n\n")
     collection.export()
+
+    if args.images != "none":
+        generate_collection_images(f"output/{collection.collection_name}", args.images)
 
 
 if __name__ == "__main__":

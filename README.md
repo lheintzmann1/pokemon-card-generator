@@ -101,8 +101,23 @@ Each card JSON looks like this:
 
 ## Generate the artwork
 
-Paste the `image_prompt` (also in `output/<collection>/_image_prompts.txt`) into Midjourney,
-save the image in `output/<collection>/images/` and rename it to the card's `image_file`
+By default, `generate.py` also **generates the artwork of each card** from its `image_prompt`
+with [Pollinations](https://pollinations.ai) (free, no API key, does not use your OpenRouter
+quota). Images are saved to `output/<collection>/images/<image_file>`.
+
+```bash
+python src/generate.py -g tf2 --images none         # skip image generation
+python src/generate_images.py -g tf2                # generate missing images (e.g. after an error)
+python src/generate_images.py -g cs --force         # regenerate every image (new variations)
+python src/generate_images.py -g tf2 -p openrouter  # OpenRouter image model (paid, needs credits)
+```
+
+Optional `.env` settings: `POLLINATIONS_TOKEN` (higher rate limits; the anonymous tier may
+ignore the model choice), `POLLINATIONS_MODEL` (default `flux`), `OPENROUTER_IMAGE_MODEL`
+(default `google/gemini-2.5-flash-image`). The Pollinations watermark is cropped off automatically.
+
+You can still use Midjourney: paste the `image_prompt` (also in `output/<collection>/_image_prompts.txt`),
+save the image in `output/<collection>/images/` with the card's `image_file` name
 (e.g. `007_crumpet.png`). Any image ratio works: it is scaled and cropped to the 3:2 window.
 
 ## Render the cards
