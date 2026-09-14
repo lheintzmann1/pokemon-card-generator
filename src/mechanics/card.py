@@ -20,6 +20,7 @@ class Card:
     description: str = ""
     part_of_evolution: bool = False
     style: Style = field(default_factory=Style)
+    game: str | None = None  # Key of the game the card belongs to (e.g. "tf2").
 
     image_prompt: str | None = None
     visual_description: str | None = None
@@ -41,6 +42,7 @@ class Card:
 
     def to_json(self):
         return {
+            "game": self.game,
             "index": self.index,
             "name": self.name,
             "description": self.description,

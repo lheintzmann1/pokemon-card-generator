@@ -1,0 +1,36 @@
+{
+  "economy_1": ["Eco Round", "Save", "Weapon Drop", "Pistol Buy", "Kill Reward"],
+  "economy_2": ["Force Buy", "Loss Bonus", "Half Buy", "Zeus Zap", "Kevlar Up"],
+  "economy_3": ["Full Buy", "Plant Bonus", "Team Drop", "Round Payout", "Armor Stack"],
+  "economy_4": ["$16,000", "Max Economy", "Anti-Eco", "Bank Break", "Glock Rush"],
+
+  "rifle_1": ["Tap", "Burst", "Spray", "Peek", "Pre-Fire"],
+  "rifle_2": ["Spray Transfer", "One Tap", "Wide Swing", "Counter-Strafe", "Jiggle Peek"],
+  "rifle_3": ["AK Headshot", "M4 Spray-Down", "Entry Frag", "Crossfire", "Trade Kill"],
+  "rifle_4": ["Ace", "1v5 Clutch", "Site Execute", "Triple Kill", "Retake"],
+
+  "sniper_1": ["Scope In", "Angle Hold", "Scout Shot", "Hard Scope", "Scope Glint"],
+  "sniper_2": ["Quickscope", "Noscope", "Jump Scout", "Wallbang", "AWP Peek"],
+  "sniper_3": ["Flick", "Collateral", "No-Scope Flick", "Opening Pick", "Mid Doors Cross"],
+  "sniper_4": ["AWP Ace", "Double Collateral", "Four-Man Wipe", "Jump AWP", "Mid Control"],
+
+  "smg_1": ["Run and Gun", "Spray", "Rush", "Close Quarters", "Mag Dump"],
+  "smg_2": ["P90 Rush", "MAC-10 Push", "Kill Bonus", "MP9 Hold", "Shotgun Hold"],
+  "smg_3": ["Rush B", "Anti-Eco Spray", "P90 Stampede", "Bizon Spray", "Flank"],
+  "smg_4": ["Rush B Don't Stop", "SMG Ace", "Swarm Push", "Five-Man Rush", "Stack Site"],
+
+  "pistol_1": ["Glock Tap", "USP Tap", "Pistol Round", "Headshot", "Quick Draw"],
+  "pistol_2": ["Deagle One-Tap", "Tec-9 Rush", "Five-SeveN Burst", "CZ Spray", "R8 Shot"],
+  "pistol_3": ["Deagle Headshot", "Dual Berettas", "Pistol Ace", "Eco Frag", "Jump Shot"],
+  "pistol_4": ["Deagle Ace", "Clutch Deagle", "One Deag", "Pistol Round Ace", "Revolver Roulette"],
+
+  "utility_1": ["Flash", "Smoke", "Decoy", "Pop Flash", "Molly"],
+  "utility_2": ["HE Grenade", "Molotov", "One-Way Smoke", "Execute Smoke", "Incendiary"],
+  "utility_3": ["Smoke Wall", "Flash Assist", "Nade Stack", "Molly Trap", "Retake Utility"],
+  "utility_4": ["Full Execute", "Triple Smoke", "Nade Barrage", "Utility Dump", "Blind Run"],
+
+  "knife_1": ["Knife Slash", "Stab", "Inspect", "Quick Stab", "Knife Run"],
+  "knife_2": ["Backstab", "Knife Out", "Karambit Slash", "Butterfly Flip", "Bayonet Jab"],
+  "knife_3": ["Ninja Defuse", "Knife Round", "Karambit Fade", "Butterfly Flurry", "Shadow Stab"],
+  "knife_4": ["Ninja Ace", "Knife Ace", "Humiliation", "Gut Knife Rampage", "Knife Clutch"]
+}

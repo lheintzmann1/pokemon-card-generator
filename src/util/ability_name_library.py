@@ -1,133 +1,89 @@
+import argparse
+from functools import lru_cache
 import json
+import os
 import random
 import re
 import string
-from mechanics.element import Element
+
+from games.game import Game
 from mechanics.ability import Ability
-from pokemon_content.pokemon_elements import PokemonElements
 from util.gpt_call import gpt_client
 
-DEFAULT_PATH = "data/ability_names.json"
+COST_ADJECTIVES = ["weak, basic", "standard", "strong", "devastating, ultimate"]
 
 
-def get_ability_name(ability: Ability) -> str:
-    key = ability.ability_key
-    with open(DEFAULT_PATH, "r") as f:
-        ability_name_map = json.load(f)
-
-    if key in ability_name_map:
-        potential_names = ability_name_map[key]
-        return random.choice(potential_names)
-    else:
-        print(f"Could not find ability name for {key}")
-        return generate_ability_name(ability, 1)[0]
+def ability_key(ability: Ability) -> str:
+    return f"{ability.element.slug}_{ability.cost}"
 
 
-def generate_all_ability_names_to_file(path: str, elements: list[Element]) -> list[str]:
+@lru_cache(maxsize=None)
+def load_ability_names(path: str) -> dict[str, list[str]]:
+    if not os.path.exists(path):
+        return {}
+    with open(path, "r") as f:
+        return json.load(f)
 
+
+def get_ability_name(ability: Ability, game: Game, exclude: set[str] = frozenset()) -> str:
+    key = ability_key(ability)
+    names = load_ability_names(game.ability_names_path).get(key, [])
+    candidates = [name for name in names if name not in exclude] or names
+    if candidates:
+        return random.choice(candidates)
+
+    # No AI fallback here on purpose: it would cost one request per ability.
+    print(f"Could not find ability name for {key}")
+    return f"{ability.element.name} Strike"
+
+
+def generate_all_ability_names_to_file(game: Game, path: str, per_key: int = 4):
     ability_name_map = {}
     all_ability_names = set()
-    abilities_per_key = 4
-    all_mixed_element_values = [False, True]
-    all_cost_values = [1, 2, 3, 4]
 
-    for element, cost, is_mixed_element in [
-        (element, cost, is_mixed_element)
-        for element in elements
-        for cost in all_cost_values
-        for is_mixed_element in all_mixed_element_values
-    ]:
+    for element in game.elements:
+        for cost in [1, 2, 3, 4]:
+            ability = Ability(name="Ability", element=element, cost=cost)
+            # Generate more names for expensive abilities.
+            names = generate_ability_names(ability, game, per_key + cost)
+            unique_names = [name for name in names if name not in all_ability_names]
+            ability_name_map[ability_key(ability)] = unique_names
+            all_ability_names.update(unique_names)
 
-        if element.is_neutral and is_mixed_element:
-            continue
-
-        ability = Ability(
-            name="Ability",
-            element=element,
-            cost=cost,
-            is_mixed_element=is_mixed_element,
-        )
-
-        # Generate more names for expensive abilities.
-        abilities = generate_ability_name(ability, abilities_per_key + cost)
-
-        # Make sure we don't add anything we've already seen.
-        unique_abilities = [x for x in abilities if x not in all_ability_names]
-        ability_name_map[ability.ability_key] = unique_abilities
-        all_ability_names.update(unique_abilities)
-
-        # Save each step so we don't lose progress if something goes wrong.
-        with open(path, "w") as f:
-            json.dump(ability_name_map, f, indent=2)
+            # Save each step so we don't lose progress if something goes wrong.
+            with open(path, "w") as f:
+                json.dump(ability_name_map, f, indent=2)
 
 
-def generate_ability_name(ability: Ability, n: int) -> list[str]:
-    ability_names = []
-    prompt = generate_ability_name_prompt(ability, n)
-    response = gpt_client().get_completion(prompt, max_tokens=512)
-    common_delimters_regex = r"[\n\.\,\?\!\:\;]"
-    response_text = response.choices[0].text
-    ability_names = re.split(common_delimters_regex, response_text)
-
-    # For all the ability names, remove any characters that are not letters or spaces.
-    ability_names = [
-        re.sub(r"[^a-zA-Z\s]", "", ability_name) for ability_name in ability_names
-    ]
-
-    # Remove empty strings from the list
-    ability_names = [ability_name for ability_name in ability_names if ability_name]
-
-    # Trim any whitespace from the beginning and end of each ability name
-    ability_names = [ability_name.strip() for ability_name in ability_names]
-
-    # Remove any names that do not have a letter in them.
-    ability_names = [
-        ability_name
-        for ability_name in ability_names
-        if re.search(r"[a-zA-Z]", ability_name)
-    ]
-
-    # Set them all to the same casing.
-    ability_names = [string.capwords(ability_name) for ability_name in ability_names]
-    print(f"Prompt: {prompt}\n")
-    print(f"Raw Response: {response_text}\n")
-    print(f"Generated {len(ability_names)} ability names: {ability_names}\n")
-    return ability_names
-
-
-def generate_ability_name_prompt(ability: Ability, n: int):
-    cost_adjectives = [
-        "weak, basic",
-        "standard",
-        "strong",
-        "extremely powerful",
-    ]
-    ability_cost_description = cost_adjectives[ability.cost - 1]
-    ability_elemental_description = (
-        f"{ability.element.name} elemental"
-        if not ability.element.is_neutral
-        else "physical, neutral, non-elemental"
+def generate_ability_names(ability: Ability, game: Game, n: int) -> list[str]:
+    words = "(single-word names only)" if ability.cost <= 2 else "(max 1-3 words per name)"
+    prompt = game.ability_prompt.format(
+        n=n,
+        power=COST_ADJECTIVES[ability.cost - 1],
+        element=ability.element.name,
+        words=words,
     )
+    response = gpt_client().get_completion(prompt, max_tokens=512, n=n)
 
-    if not ability.element.is_neutral:
-        if ability.is_mixed_element:
-            ability_elemental_description = f"semi-physical {ability.element.name}"
-        elif ability.cost > 2:
-            ability_elemental_description = f"mythical {ability_elemental_description}"
+    names = []
+    for choice in response.choices:
+        name = re.sub(r"[^\w\s'!.-]", "", choice.text).strip(" .-")
+        if re.search(r"[a-zA-Z]", name):
+            names.append(string.capwords(name))
 
-    ability_description = f"{ability_cost_description} {ability_elemental_description}"
-
-    if ability.cost <= 2:
-        word_limit_prompt = f"(single-word ability names only)"
-    else:
-        word_limit_prompt = f"(max 1-2 words per ability name)"
-
-    prompt = f"Generate {n} unique, original Pokemon attack name(s) for a {ability_description} attack "
-    prompt += f"({word_limit_prompt}):\n"
-    return prompt
+    print(f"Prompt: {prompt}\n")
+    print(f"Generated {len(names)} ability names: {names}\n")
+    return names
 
 
 if __name__ == "__main__":
+    from games.registry import GAMES, get_game
+
+    parser = argparse.ArgumentParser(description="Regenerate ability names with AI.")
+    parser.add_argument("-g", "--game", choices=sorted(GAMES), default="tf2")
+    parser.add_argument("-o", "--output", default=None, help="Output JSON path.")
+    args = parser.parse_args()
+    selected_game = get_game(args.game)
     generate_all_ability_names_to_file(
-        "data/generated_ability_names.json", [PokemonElements.FIGHTING]
+        selected_game, args.output or f"data/{selected_game.key}/generated_ability_names.json"
     )

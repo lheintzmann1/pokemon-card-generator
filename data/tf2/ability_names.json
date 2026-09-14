@@ -1,0 +1,51 @@
+{
+  "mann_co_1": ["Pocket Change", "Crate Toss", "Paperwork", "Coin Flip", "Warranty Void"],
+  "mann_co_2": ["Hostile Takeover", "Supply Drop", "Uncrate", "Fine Print", "Payroll"],
+  "mann_co_3": ["Mann-Upgrade", "Robot Uprising", "Board Meeting", "Mandatory Overtime", "Bomb Deploy"],
+  "mann_co_4": ["Australium Rush", "Mann vs. Machine", "Hostile Merger", "Tank Buster", "Gravel War"],
+
+  "scout_1": ["Bonk!", "Double Jump", "Scattershot", "Bat Bonk", "Mad Milk"],
+  "scout_2": ["Force-A-Nature", "Home Run", "Cap Rush", "Sandman Stun", "Crit-a-Cola"],
+  "scout_3": ["Triple Jump", "Baby Face Blast", "Grand Slam", "Soda Popper", "Speed Demon"],
+  "scout_4": ["Boston Basher", "Atomic Rush", "Bonk Overdrive", "Shortstop Barrage", "Hype Mode"],
+
+  "soldier_1": ["Shovel Swing", "Rocket Poke", "Battle Cry", "Salute", "Bugle Toot"],
+  "soldier_2": ["Direct Hit", "Rocket Jump", "Buff Banner", "Splash Damage", "Concheror"],
+  "soldier_3": ["Market Garden", "Black Box", "Rocket Barrage", "Beggar's Bazooka", "Air Strike"],
+  "soldier_4": ["Kamikaze", "Cow Mangler", "Crit Rocket Rain", "Grenade Taunt", "Liberty Launcher"],
+
+  "pyro_1": ["Airblast", "Puff", "Spy-Check", "Flare Pop", "Mmmph"],
+  "pyro_2": ["Flamethrower", "Axtinguisher", "Backburn", "Scorch Shot", "Detonator Jump"],
+  "pyro_3": ["Phlogistinator", "Degreaser Combo", "W+M1", "Dragon's Fury", "Thermal Thruster"],
+  "pyro_4": ["Hadouken", "Armageddon", "Pyroland", "Gas Passer", "Rainblower"],
+
+  "demoman_1": ["Kaboom", "Bottle Smash", "Shield Bash", "Sticky Tap", "Pipe Bounce"],
+  "demoman_2": ["Sticky Trap", "Loch-n-Load", "Chargin' Targe", "Pipe Spam", "Scrumpy Swig"],
+  "demoman_3": ["Eyelander", "Sticky Jump", "Iron Bomber", "Demoknight Charge", "Caber Toss"],
+  "demoman_4": ["Ullapool Caber", "Sticky Carpet", "Head Collector", "Scottish Resistance", "Decapitation"],
+
+  "heavy_1": ["Heavy Punch", "Sandvich", "Sasha Spin", "Gloves of Running", "Nom Nom"],
+  "heavy_2": ["Minigun Spin-Up", "Brass Beast", "Killing Gloves", "Tomislav", "Big Chief"],
+  "heavy_3": ["Natascha", "Showdown", "Steak Rage", "Fists of Steel", "Huo-Long Heater"],
+  "heavy_4": ["Sasha Barrage", "Cry Some More", "Crit-a-Heavy", "Minigun Storm", "Holiday Punch"],
+
+  "engineer_1": ["Wrench Tap", "Pistol Plink", "Metal Scrap", "Teleporter Hop", "Dispenser Here"],
+  "engineer_2": ["Sentry Nest", "Rescue Ranger", "Frontier Justice", "Gunslinger", "Wrangler"],
+  "engineer_3": ["Level 3 Sentry", "Widowmaker", "Short Circuit", "Pomson Blast", "Southern Hospitality"],
+  "engineer_4": ["Mini-Sentry Swarm", "Texas Ten-Shot", "Sentry Rocket Volley", "Eureka Effect", "Engineer Update"],
+
+  "medic_1": ["Syringe", "Bonesaw", "Heal Beam", "Crusader's Bolt", "Medic!"],
+  "medic_2": ["Kritzkrieg", "Quick-Fix", "Vaccinator", "Amputator", "Blutsauger"],
+  "medic_3": ["Übercharge", "Ubersaw", "Solemn Vow", "Overdose", "Vita-Saw"],
+  "medic_4": ["Full Über", "Kritz Pocket", "Medieval Medic", "Medi Gun Surge", "Meet the Medic"],
+
+  "sniper_1": ["Kukri Slash", "Jarate", "Body Shot", "SMG Burst", "Scope In"],
+  "sniper_2": ["Huntsman", "Headshot", "Sydney Sleeper", "Razorback", "Bazaar Bargain"],
+  "sniper_3": ["Machina", "Hitman's Heatmaker", "Arrow Stab", "Darwin's Danger", "Cleaner's Carbine"],
+  "sniper_4": ["Charged Headshot", "The Classic", "Shooting Star", "Crocodile Hunt", "Skewer"],
+
+  "spy_1": ["Sapper", "Cloak", "Disguise", "Ambassador Tap", "Cigarette Flick"],
+  "spy_2": ["Backstab", "Dead Ringer", "Eternal Reward", "Enforcer", "Cloak and Dagger"],
+  "spy_3": ["Trickstab", "Spy-cicle", "Diamondback", "Big Earner", "Kunai Strike"],
+  "spy_4": ["Fencing Finisher", "Deadly Charade", "Triple Backstab", "Sapper Chain", "Spy's Sappin'"]
+}

@@ -64,10 +64,9 @@ class Ability:
         message += f"  Power: {self.power}\n"
         return message
 
-    @property
-    def costs_as_elements(self) -> list[str]:
-        """Returns a list of elements that the ability costs."""
-        return [self.element.name] * self.elemental_cost + [NEUTRAL.name] * (
+    def cost_elements(self, neutral: Element) -> list[Element]:
+        """Returns the elements that the ability costs (neutral part last)."""
+        return [self.element] * self.elemental_cost + [neutral] * (
             self.cost - self.elemental_cost
         )
 

@@ -38,7 +38,7 @@ class OpenRouterClient:
             base_url="https://openrouter.ai/api/v1",
             default_headers={
                 "HTTP-Referer": os.getenv("OPENROUTER_HTTP_REFERER", "http://localhost"),
-                "X-Title": os.getenv("OPENROUTER_APP_NAME", "Pokemon Card Generator"),
+                "X-Title": os.getenv("OPENROUTER_APP_NAME", "TF2 & CS Card Generator"),
             },
         )
 
@@ -69,7 +69,7 @@ class OpenRouterClient:
             messages=[
                 {
                     "role": "system",
-                    "content": "You are a creative writer helping generate original fan-made creature card content. Follow formatting instructions exactly.",
+                    "content": "You are a creative writer helping generate original fan-made Team Fortress 2 and Counter-Strike trading card content. Follow formatting instructions exactly.",
                 },
                 {"role": "user", "content": request_prompt},
             ],

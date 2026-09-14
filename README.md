@@ -1,185 +1,150 @@
-# Pokemon Card AI Generator
+# TF2 & Counter-Strike Card AI Generator
 
-![Pokemon Card AI Generator](generator_image.png)
+This is a Python script that **generates random, fan-made trading cards** for
+**Team Fortress 2** and **Counter-Strike**. It picks an element (a TF2 class or a CS
+weapon category), a character and 1-2 abilities, then (optionally) uses AI to name and
+describe the cards, and writes a [Midjourney](https://midjourney.com/home) prompt for the artwork.
 
-This is a Python script that **uses AI to generate new, random Pokemon cards.** It picks
-from 6 elements and a type of creature, and random generates 1-2 abilities.
+A separate command combines the card data with the artwork (or a placeholder) to render the cards.
 
-It then uses OpenAI to generate a Pokemon name and a description, and creates
-a prompt for [Midjourney](https://midjourney.com/home) (which needs to be used manually).
+> Forked from [pixegami/pokemon-card-generator](https://github.com/pixegami/pokemon-card-generator).
+> Fan project, not affiliated with Valve.
 
-Then a separate command can be used to combine the Pokemon data with the generated artwork to create a new Pokemon card.
+| Team Fortress 2                                    | Counter-Strike                                   |
+| -------------------------------------------------- | ------------------------------------------------ |
+| ![Team Fortress 2 cards](gallery/tf2_preview.jpg) | ![Counter-Strike cards](gallery/cs_preview.jpg) |
 
-👉 [Watch the video on Youtube!](https://youtu.be/IrDRHzT26F4)
+_(Previews rendered without artwork: the placeholder shows the element icon.)_
 
-# Final Results
+## Games
 
-## Card With Details
+| Game            | `--game` | Elements                                                                                       | Rarities                        | Retreat cost |
+| --------------- | -------- | ---------------------------------------------------------------------------------------------- | ------------------------------- | ------------ |
+| Team Fortress 2 | `tf2`    | `mann_co` (neutral), `scout`, `soldier`, `pyro`, `demoman`, `heavy`, `engineer`, `medic`, `sniper`, `spy` | Unique, Strange, Unusual        | respawn      |
+| Counter-Strike  | `cs`     | `economy` (neutral), `rifle`, `sniper`, `smg`, `pistol`, `utility`, `knife`                    | Mil-Spec, Classified, Covert    | rotate       |
 
-The finished generated card will have a name, description, and card artwork.
-
-| Description                                                                                                                                                                                                                           | Card Image                                  |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| Ignax is a sweltering hot Pokemon found in desert-like regions that brandishes a deadly dark axe. It is known for its fierce demeanor and its Ignition Surge ability, which it uses toits advantage in fierce, awe-inspiring battles. | ![003_ignax](gallery/renders/003_ignax.png) |
-
-## Series Of Cards (Evolution)
-
-The script can also generate a series of cards that evolve from one another.
-
-| Form 1                                      | Form 2                                          | Form 3                                              |
-| ------------------------------------------- | ----------------------------------------------- | --------------------------------------------------- |
-| ![011_gekko](gallery/renders/011_gekko.png) | ![012_dreiga](gallery/renders/012_dreiga.png)   | ![013_spearidae](gallery/renders/013_spearidae.png) |
-| ![016_fawna](gallery/renders/016_fawna.png) | ![017_buckrim](gallery/renders/017_buckrim.png) | ![018_armogeld](gallery/renders/018_armogeld.png)   |
-
-For the full example collection, see [the gallery](./gallery).
-
-## Metadata
-
-The output will be in the `/output` folder, with empty folders for you to put card artwork into.
-
-```
-[project root]
-├───output
-    ├───cards
-    ├───images
-```
-
-The cards will have JSON like this:
-
-```json
-{
-  "index": 26,
-  "name": "Flamo",
-  "description": "...",
-  "element": "Fire",
-  "rarity": "common",
-  "rarity_index": 0,
-  "hp": 50,
-  "abilities": [
-    {
-      "name": "Scorch",
-      "element": "Fire",
-      "cost": 2,
-      "is_mixed_element": false,
-      "power": 40
-    }
-  ],
-  "image_prompt": "a chibi young fire-type parrot pokemon, in a volcano environment, lava texture background, anime chibi drawing style, pastel background --niji --ar 3:2",
-  "image_file": "026_flamo.png"
-}
-```
-
-You can use the `image_prompt` to generate the card artwork with Midjourney.
+Each element has its own card template, icon, characters, environments, weaknesses and
+resistances (e.g. a Spy is weak to Pyro, a Sniper resists Heavy; an SMG is weak to Rifles).
 
 # Setup
 
 1. Install Python 3.10 (or higher)
 2. Install the dependencies with `pip install -r requirements.txt`
-3. Set your PYTHONPATH to the `src` so that the modules can be imported.
+3. Set your PYTHONPATH to `src` so that the modules can be imported.
 
    ```bash
-   # For bash, you can use:
    export PYTHONPATH=$PYTHONPATH:src
    ```
 
-## OpenAI and Midjourney
+## AI names and descriptions (optional)
 
-If you want to use OpenAI to generate names and descriptions, you will need to set up an account with [OpenAI](https://openai.com/).
-
-Then put your API key into a file called `.env` in the root of the project.
+Names and descriptions are generated with [OpenRouter](https://openrouter.ai/). Put your key in a `.env` file:
 
 ```bash
-# In your .env file
-OPENAI_API_KEY="sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+OPENROUTER_API_KEY="sk-or-..."
+# Optional:
+OPENROUTER_MODEL="openrouter/free"
 ```
 
-If you want AI generated artwork, you will also need to set up an account (just join their Discord) with [Midjourney](https://midjourney.com/home).
+Without a key (or with `--offline`), cards get built-in nicknames/callsigns and a generated description.
+
+**Request budget:** the free tier is limited (~50 requests/day), so the cards are named in
+**batches: 1 request per 10 cards** (`--batch-size`). A default run (1 series per element,
+~15-20 cards) uses about 2 requests. Ability names come from `data/<game>/ability_names.json`
+and never cost a request.
 
 # Usage
 
-Running this will generate a collection of Pokemon to the `output` folder. **WARNING!** Each time you run this, it will overwrite the existing files in the `output` folder.
-
-## Generate Cards (1 Series Per Element)
+Generated files go to `output/<collection>/` (`output/tf2-mercenaries` or `output/cs-operators`).
+**WARNING!** Each run overwrites the existing files of that collection.
 
 ```bash
-python src/generate.py
+python src/generate.py                      # TF2, 1 series (1-3 cards) per class
+python src/generate.py -g cs                # Counter-Strike
+python src/generate.py -g tf2 -n 3          # 3 series per class
+python src/generate.py -g tf2 -e medic      # Only Medic cards
+python src/generate.py -g cs -e knife -s "pirate captain"   # Custom character
+python src/generate.py -g cs --offline --seed 42            # No AI, reproducible
 ```
 
-This will generate card `json` files, 1 card series (between 1-3 cards) for each element. The rarity, creature type, and number of evolutions of the cards will be random.
-
-You will see the summary of the card series generated:
+You will see a summary of each card:
 
 ```
-Chippo (Neutral)
-HP: 30
-Rarity: ★  (common)
+Kaboomski (Mann Co.)
+HP: 50
+Rarity: ★  (Unique)
 Abilities:
-  Slash (Neutral)
+  Hostile Takeover (Mann Co.)
   Cost: ● ●
   Power: 20
-
-Description: [...]
-Image Prompt: [...]
 ```
 
-## Generate Cards (10 Series Per Element)
+Each card JSON looks like this:
+
+```json
+{
+  "game": "tf2",
+  "index": 7,
+  "name": "Crumpet",
+  "description": "...",
+  "element": "Pyro",
+  "rarity": "Strange",
+  "rarity_index": 1,
+  "hp": 40,
+  "abilities": [
+    { "name": "W+M1", "element": "Pyro", "cost": 3, "is_mixed_element": true, "power": 40 }
+  ],
+  "image_prompt": "Crumpet::0 a seasoned Pyro-class cheerful fire-starter mercenary from Team Fortress 2::1.8, holding a festive flare gun, in a misty alpine sawmill, ...",
+  "image_file": "007_crumpet.png"
+}
+```
+
+## Generate the artwork
+
+Paste the `image_prompt` (also in `output/<collection>/_image_prompts.txt`) into Midjourney,
+save the image in `output/<collection>/images/` and rename it to the card's `image_file`
+(e.g. `007_crumpet.png`). Any image ratio works: it is scaled and cropped to the 3:2 window.
+
+## Render the cards
 
 ```bash
-python src/generate.py -n 10
+python src/render_cards.py            # output/tf2-mercenaries
+python src/render_cards.py -g cs      # output/cs-operators
+python src/render_cards.py --collection path/to/collection
 ```
 
-## Generate Cards of a Specific Element
+Renders go to `output/<collection>/renders/`. Cards without artwork get a placeholder.
+
+# Resources (SVG)
+
+Card templates and element icons are **generated as SVG** by `src/build_resources.py`
+and rasterized to the PNGs used by the renderer:
+
+```
+resources/<game>/svg/cards/<element>_card.svg        # sources
+resources/<game>/svg/elements/<element>_element.svg
+resources/<game>/cards/<element>_card.png            # used by render_cards.py
+resources/<game>/elements/<element>_element.png
+```
+
+To tweak a design (colors, shapes, layout), edit `src/build_resources.py`, the element
+colors in `src/games/tf2.py` / `src/games/cs.py`, or the shared geometry in
+`src/card_layout.py`, then rebuild (needs `rsvg-convert` from librsvg, or `pip install cairosvg`):
 
 ```bash
-python src/generate.py -e fire
+python src/build_resources.py          # all games
+python src/build_resources.py -g cs    # one game
 ```
 
-This will only generate cards for the `fire` element. Available elements are: `fire`, `water`, `grass`, `electric`, `psychic`, `neutral`.
+# Adding a game
 
-## Generate Cards of a Specific Creature Type
-
-You can also specify a specific creature type (subject) to generate cards for. This will override the default subject selection (which is random).
-
-```bash
-python src/generate.py -e grass --subject pumpkin
-```
-
-You can literally put anything here! Have fun with it 😄
-
-| Pumkpin                                     | Toucan                                    | Sphinx                                     |
-| ------------------------------------------- | ----------------------------------------- | ------------------------------------------ |
-| ![pumpkin](gallery/renders/001_regalot.png) | ![toucan](gallery/renders/001_chippo.png) | ![sphinx](gallery/renders/002_sfyrinx.png) |
-
-## Use Midjourney to Generate Card Artwork
-
-You can use the `image_prompt` to generate the card artwork with Midjourney. The image prompt will be in the `json` file for each card (and also in the `image_prompts.txt` in the `output` folder).
-
-```
-Chippo::0 a chibi young neutral-type toucan pokemon, in a village environment, bright lighting, anime chibi drawing style, pastel background --niji --ar 3:2
-```
-
-Copy this into the Midjourney `/image` prompt. It will generate 4 variations of the image. You can then upscale it by pressing one of the `U` buttons on the bot.
-
-Download and save the image into the `output/pokemon-classic/images` folder. Then rename the file to match the `image_file` in the `json` file (e.g. `001_chippo.png`).
-
-![midjourney_example](midjourney_example.png)
-
-## Render the Cards
-
-You can use the `render_cards.py` script to render the cards into a PNG file. It will go into your `output/pokemon-classic/renders` folder.
-
-```bash
-python src/render_cards.py
-```
-
-Any cards that have an image file in the `output/pokemon-classic/images` folder will be rendered. If no image is found, it will render a blank card.
-
-### Available Elements
-
-| fire                                         | water                                          | grass                                          | electric                                             | psychic                                            | fighting                                             | neutral                                            |
-| -------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------------- | -------------------------------------------------- | ---------------------------------------------------- | -------------------------------------------------- |
-| ![fire](resources/elements/fire_element.png) | ![water](resources/elements/water_element.png) | ![grass](resources/elements/grass_element.png) | ![electric](resources/elements/electric_element.png) | ![psychic](resources/elements/psychic_element.png) | ![fighting](resources/elements/fighting_element.png) | ![neutral](resources/elements/neutral_element.png) |
+1. Create `src/games/<game>.py` with a `Game(...)` definition (elements, rarities, characters,
+   environments, prompts, weaknesses, theme) and register it in `src/games/registry.py`.
+2. Add `data/<game>/ability_names.json` (keys: `<element>_<cost>`).
+3. Add a card template + icon builder and glyphs in `src/build_resources.py`, then build.
 
 ### Acknowledgements
 
-Thanks to [TheDuckTamerBlanks](https://www.deviantart.com/katarawaterbender) for the blank card template.
+Original project by [pixegami](https://github.com/pixegami/pokemon-card-generator).
+Fonts: Cabin and Noto Sans Symbols 2 (SIL Open Font License).
+Team Fortress 2 and Counter-Strike are trademarks of Valve Corporation; this is an unofficial fan project.
